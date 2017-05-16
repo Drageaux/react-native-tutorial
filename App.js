@@ -1,28 +1,15 @@
-import React, {Component} from 'react';
-import {AppRegistry, StyleSheet, Text, View} from 'react-native';
-import Bananas from './App/Bananas';
-import LotsOfGreetings from './App/Greeting'
+import React, {Component} from "react";
+import {AppRegistry, StyleSheet, Text, TextInput, View, ScrollView, Image} from "react-native";
+import ListViewer from "./App/ListViewer";
 
 // need 'export default' else it wouldn't compile
 export default class Root extends Component {
     render() {
         return (
-            <View style={styles.container}>
-                <Text>HARO WARUDO</Text>
-                <Bananas/>
-                <LotsOfGreetings/>
-            </View>
-        );
+            <ListViewer/>
+        )
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
 
-AppRegistry.registerComponent("App", () => App)
+AppRegistry.registerComponent('App', () => App);
