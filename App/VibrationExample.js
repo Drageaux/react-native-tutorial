@@ -1,6 +1,19 @@
-import React, {Component} from "react";
-import {AppRegistry, StyleSheet, View, Text, TouchableHighlight, Vibration, Platform} from "react-native";
+'use strict';
 
+var React = require('react');
+var ReactNative = require('react-native');
+var {
+    StyleSheet,
+    View,
+    Text,
+    TouchableHighlight,
+    Vibration,
+    Platform,
+} = ReactNative;
+
+exports.framework = 'React';
+exports.title = 'Vibration';
+exports.description = 'Vibration API';
 
 var pattern, patternLiteral, patternDescription;
 if (Platform.OS === 'android') {
@@ -22,16 +35,36 @@ arg 0: duration to wait before turning the vibrator on.
 subsequent args: duration to wait before next vibrattion.
 `;
 }
-// need 'export default' else it wouldn't compile
-export default class App extends Component {
-    title = `Vibration.vibrate(${patternLiteral}, true)`;
 
-    render() {
-        return (
-            <View style={styles.container}>
+exports.examples = [
+    {
+        title: 'Pattern Descriptions',
+        render() {
+            return (
                 <View style={styles.wrapper}>
                     <Text>{patternDescription}</Text>
                 </View>
+            );
+        },
+    },
+    {
+        title: 'Vibration.vibrate()',
+        render() {
+            return (
+                <TouchableHighlight
+                    style={styles.wrapper}
+                    onPress={() => Vibration.vibrate()}>
+                    <View style={styles.button}>
+                        <Text>Vibrate</Text>
+                    </View>
+                </TouchableHighlight>
+            );
+        },
+    },
+    {
+        title: `Vibration.vibrate(${patternLiteral})`,
+        render() {
+            return (
                 <TouchableHighlight
                     style={styles.wrapper}
                     onPress={() => Vibration.vibrate(pattern)}>
@@ -39,6 +72,13 @@ export default class App extends Component {
                         <Text>Vibrate once</Text>
                     </View>
                 </TouchableHighlight>
+            );
+        },
+    },
+    {
+        title: `Vibration.vibrate(${patternLiteral}, true)`,
+        render() {
+            return (
                 <TouchableHighlight
                     style={styles.wrapper}
                     onPress={() => Vibration.vibrate(pattern, true)}>
@@ -46,6 +86,13 @@ export default class App extends Component {
                         <Text>Vibrate until cancel</Text>
                     </View>
                 </TouchableHighlight>
+            );
+        },
+    },
+    {
+        title: 'Vibration.cancel()',
+        render() {
+            return (
                 <TouchableHighlight
                     style={styles.wrapper}
                     onPress={() => Vibration.cancel()}>
@@ -53,19 +100,12 @@ export default class App extends Component {
                         <Text>Cancel</Text>
                     </View>
                 </TouchableHighlight>
-            </View>
-        );
-    }
-}
-
+            );
+        },
+    },
+];
 
 var styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
     wrapper: {
         borderRadius: 5,
         marginBottom: 5,
@@ -75,5 +115,3 @@ var styles = StyleSheet.create({
         padding: 10,
     },
 });
-
-AppRegistry.registerComponent('App', () => App);
