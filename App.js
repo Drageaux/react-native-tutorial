@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, View} from 'react-native';
-import Bananas from './Bananas';
-import LotsOfGreetings from './Greeting'
+import Bananas from './App/Bananas';
+import LotsOfGreetings from './App/Greeting'
 
 // need 'export default' else it wouldn't compile
 export default class Root extends Component {
@@ -24,3 +24,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 });
+
+AppRegistry.registerComponent("App", () => App)
