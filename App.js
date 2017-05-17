@@ -1,60 +1,50 @@
 import React, {Component} from "react";
 import {AppRegistry, StyleSheet, View, Text, TouchableHighlight, Vibration, Platform} from "react-native";
+import {Audio} from "expo";
 
-
-var pattern, patternLiteral, patternDescription;
-if (Platform.OS === 'android') {
-    pattern = [0, 500, 200, 500];
-    patternLiteral = '[0, 500, 200, 500]';
-    patternDescription = `${patternLiteral}
-arg 0: duration to wait before turning the vibrator on.
-arg with odd: vibration length.
-arg with even: duration to wait before next vibration.
-`;
-} else {
-    pattern = [0, 1000, 2000, 3000];
-    patternLiteral = '[0, 1000, 2000, 3000]';
-    patternDescription = `${patternLiteral}
-vibration length on iOS is fixed.
-pattern controls durations BETWEEN each vibration only.
-
-arg 0: duration to wait before turning the vibrator on.
-subsequent args: duration to wait before next vibrattion.
-`;
-}
 // need 'export default' else it wouldn't compile
 export default class App extends Component {
-    title = `Vibration.vibrate(${patternLiteral}, true)`;
+    constructor(props) {
+        super(props);
+        this.sound = new Audio.Sound({
+            source: require('./assets/sounds/denied.mp3'),
+        });
+    }
+
+    componentDidMount() {
+        Audio.setIsEnabledAsync(true);
+        Audio.setAudioModeAsync({
+            allowsRecordingIOS: false,
+            interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+            playsInSilentLockedModeIOS: true,
+            shouldDuckAndroid: true,
+            interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+        });
+    }
 
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.wrapper}>
-                    <Text>{patternDescription}</Text>
-                </View>
                 <TouchableHighlight
                     style={styles.wrapper}
-                    onPress={() => Vibration.vibrate(pattern)}>
+                    onPress={() => this.playSound()}>
                     <View style={styles.button}>
-                        <Text>Vibrate once</Text>
-                    </View>
-                </TouchableHighlight>
-                <TouchableHighlight
-                    style={styles.wrapper}
-                    onPress={() => Vibration.vibrate(pattern, true)}>
-                    <View style={styles.button}>
-                        <Text>Vibrate until cancel</Text>
-                    </View>
-                </TouchableHighlight>
-                <TouchableHighlight
-                    style={styles.wrapper}
-                    onPress={() => Vibration.cancel()}>
-                    <View style={styles.button}>
-                        <Text>Cancel</Text>
+                        <Text>Play Audio</Text>
                     </View>
                 </TouchableHighlight>
             </View>
         );
+    }
+
+    async playSound() {
+        try {
+            await this.sound.loadAsync();
+            await this.sound.playAsync();
+            // Your sound is playing!
+        } catch (error) {
+            // An error occurred!
+            console.log(err);
+        }
     }
 }
 

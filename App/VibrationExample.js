@@ -36,35 +36,13 @@ subsequent args: duration to wait before next vibrattion.
 `;
 }
 
-exports.examples = [
-    {
-        title: 'Pattern Descriptions',
-        render() {
-            return (
+export default class VibrationExample extends Component {
+    render() {
+        return (
+            <View style={styles.container}>
                 <View style={styles.wrapper}>
                     <Text>{patternDescription}</Text>
                 </View>
-            );
-        },
-    },
-    {
-        title: 'Vibration.vibrate()',
-        render() {
-            return (
-                <TouchableHighlight
-                    style={styles.wrapper}
-                    onPress={() => Vibration.vibrate()}>
-                    <View style={styles.button}>
-                        <Text>Vibrate</Text>
-                    </View>
-                </TouchableHighlight>
-            );
-        },
-    },
-    {
-        title: `Vibration.vibrate(${patternLiteral})`,
-        render() {
-            return (
                 <TouchableHighlight
                     style={styles.wrapper}
                     onPress={() => Vibration.vibrate(pattern)}>
@@ -72,13 +50,6 @@ exports.examples = [
                         <Text>Vibrate once</Text>
                     </View>
                 </TouchableHighlight>
-            );
-        },
-    },
-    {
-        title: `Vibration.vibrate(${patternLiteral}, true)`,
-        render() {
-            return (
                 <TouchableHighlight
                     style={styles.wrapper}
                     onPress={() => Vibration.vibrate(pattern, true)}>
@@ -86,13 +57,6 @@ exports.examples = [
                         <Text>Vibrate until cancel</Text>
                     </View>
                 </TouchableHighlight>
-            );
-        },
-    },
-    {
-        title: 'Vibration.cancel()',
-        render() {
-            return (
                 <TouchableHighlight
                     style={styles.wrapper}
                     onPress={() => Vibration.cancel()}>
@@ -100,10 +64,16 @@ exports.examples = [
                         <Text>Cancel</Text>
                     </View>
                 </TouchableHighlight>
-            );
-        },
-    },
-];
+                <TouchableHighlight
+                    style={styles.wrapper}>
+                    <View style={styles.button}>
+                        <Text>Play Sound</Text>
+                    </View>
+                </TouchableHighlight>
+            </View>
+        )
+    }
+}
 
 var styles = StyleSheet.create({
     wrapper: {
@@ -115,3 +85,5 @@ var styles = StyleSheet.create({
         padding: 10,
     },
 });
+
+AppRegistry.registerComponent('VibrationExample', () => VibrationExample);
