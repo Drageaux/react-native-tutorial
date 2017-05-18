@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "babel-cli": "^6.24.1",
     "babel-preset-react-native": "^1.9.2",
     "jest-expo": "^0.4.0",
     "react-native-scripts": "0.0.29",
@@ -20,9 +21,12 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@expo/ex-navigation": "^3.0.0",
+    "@expo/vector-icons": "~4.0.0",
     "expo": "^16.0.0",
     "lottie-react-native": "^1.1.1",
     "react": "16.0.0-alpha.6",
-    "react-native": "^0.43.4"
+    "react-native": "^0.43.4",
+    "react-navigation": "^1.0.0-beta.9"
   }
 }
